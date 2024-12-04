@@ -1,3 +1,29 @@
-[gd_scene format=3 uid="uid://ds1d8b66vflrt"]
+[gd_scene load_steps=3 format=3 uid="uid://ds1d8b66vflrt"]
+
+[ext_resource type="Texture2D" uid="uid://b2nxoxevfvuah" path="res://icon.svg" id="1_dl6qn"]
+[ext_resource type="Script" path="res://scripts/pipe.gd" id="1_j017l"]
 
 [node name="Pipe" type="Node2D"]
+
+[node name="InputHitbox" type="RigidBody2D" parent="." node_paths=PackedStringArray("rigidbody")]
+collision_layer = 2
+collision_mask = 2
+input_pickable = true
+gravity_scale = 0.0
+script = ExtResource("1_j017l")
+rigidbody = NodePath(".")
+
+[node name="Sprite2D" type="Sprite2D" parent="InputHitbox"]
+texture = ExtResource("1_dl6qn")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="InputHitbox"]
+polygon = PackedVector2Array(-58, 61, -59, -59, 58, -59, 60, 63)
+
+[node name="WaterHitbox" type="RigidBody2D" parent="."]
+gravity_scale = 0.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WaterHitbox"]
+polygon = PackedVector2Array(-59, -58, -8, -58, -8, 60, -58, 60)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="WaterHitbox"]
+polygon = PackedVector2Array(58, -59, 60, 62, 18, 62, 16, -59)
